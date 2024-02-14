@@ -164,3 +164,57 @@ body{
 #item:hover{
   background-color: grey;
 }
+#cartIcon{
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 2px;
+  cursor: pointer;
+}
+.itemsContainer{
+  display: flex;
+}
+.wrapper3{
+  margin: auto;
+  width: 80%;
+  height: 2000px;
+  border: 2px solid grey;
+}
+.checkoutWrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid grey;
+  
+}
+.quantity{
+  display: block;
+  border: 1px solid grey;
+}
+.qBtn{
+  display: flex;
+  align-items: center;
+  margin: 15px;
+}
+.qBtn button{
+  border: none;
+  color: white;
+  /* padding: 32px 42px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 36px;
+  background-color: black;
+  cursor: pointer;
+  margin: 10px;
+}
+.qBtn button:hover{
+  background-color: gray;
+}
+.c{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+}

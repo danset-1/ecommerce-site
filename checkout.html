@@ -14,7 +14,7 @@
             <div id="menuBtn"><a id="open"onclick="openNav()">&equiv;</a></div>
             <div id="title"><a href="index.html"><h1>Electramix</h1></a></div>
             <div id="searchBar"><input id="t" type="text" placeholder="Search.."></div>
-            <a href="checkout.html"><img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt=""></a>
+            <img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt="">
         </div>
 
     <div id="menu" class="menu">
@@ -24,16 +24,30 @@
         <a href="#">Tv & Sound</a>
     </div>  
     </div>
+    <div class="wrapper3">
 
-    <div class="wrapper2">
-    <div class="m">
-        <img src="pic/ver.svg" width="300px" height="300px" alt="">
+    <?php
+    // header("Location: purchase.html");//redirect to your html with status
+    // exit;
+    $servername = "utbweb.its.ltu.se:3306";
+    $username = "20020717";
+    $password = "20020717";
+    $dbName = "db20020717";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbName);
+    $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["CartID"]. " - Name: " . $row["ProductIDs"]. " " . $row["Quantity"]. "<br>";
+    }
+    }
+    ?>
+        
     </div>
-</div>
-
-<div class="text">
-    <h1>Purchase completed</h1>
-</div>
 
 
 </body>
