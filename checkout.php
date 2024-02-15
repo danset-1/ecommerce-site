@@ -30,6 +30,10 @@
     // header("Location: purchase.html");//redirect to your html with status
     // exit;
 
+    $servername = "utbweb.its.ltu.se:3306";
+    $username = "";
+    $password = "";
+    $dbName = "";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbName);
@@ -37,6 +41,7 @@
     $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart";
 
     $result = $conn->query($sql);
+    $totalsum = 0;
     
 
     if ($result->num_rows > 0) {
@@ -44,7 +49,10 @@
     while($row = $result->fetch_assoc()) {
         $sql2 = "SELECT ProductName, Price, Images FROM Products Where ($row[ProductIDs] = ProductID)";
         $result2 = $conn->query($sql2);
-        $row2 = $result2->fetch_assoc()
+        $row2 = $result2->fetch_assoc();
+        $a = "$row2[Price]";
+        $b = "$row[Quantity]";
+        $totalsum = $totalsum + ($a*$b);
         ?>
         <div class="checkoutWrap">
             <div class="c">
@@ -53,9 +61,9 @@
             <div><h2><?= $row2['Price']; ?>:-</h2></div>
             </div>
             <div class="qBtn">
-            <form method="post" action="updateformMin.php" ><button>-</button></form>
+            <form method="post" action="updateformMin.php" ><button type="submit" name="minus" value="<?= $row['ProductIDs']; ?>">-</button></form>
                 <div class="quantity"><h2>Quantity: <?= $row['Quantity']; ?></h2></div>
-            <form method="post" action="updateform.php" ><button>+</button></form>
+            <form method="post" action="updateform.php" ><button type="submit" name="plus" value="<?= $row['ProductIDs']; ?>">+</button></form>
             </div>
         </div>
 
@@ -63,8 +71,15 @@
     }
     }
     ?>
-        
+    <div class="checkOutBtn">
+        <div>
+            <h1>Total price: <?= $totalsum ?>:-</h1>
+            <form method="post" action="order.php" ><button class="button">Purchase</button></form>
+        </div>
     </div>
+
+    </div>
+
 
 
 </body>

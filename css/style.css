@@ -218,3 +218,24 @@ body{
   justify-content: space-between;
   margin: 15px;
 }
+.checkOutBtn{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+.checkOutBtn button{
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 36px;
+  background-color: black;
+  cursor: pointer;
+  margin: 10px;
+  }
+.checkOutBtn button:hover{
+  background-color: gray;
+}
