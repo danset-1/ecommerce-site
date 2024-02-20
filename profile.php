@@ -1,0 +1,32 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electramix</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="script/app.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="flex">
+            <div id="menuBtn"><a id="open"onclick="openNav()">&equiv;</a></div>
+            <div id="title"><a href="index.html"><h1>Electramix</h1></a></div>
+            <div id="searchBar"><input id="t" type="text" placeholder="Search.."></div>
+            <a href="checkout.php"><img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt=""></a>
+        </div>
+
+    <div id="menu" class="menu">
+        <a class="close" onclick="closeNav()">&times;</a>
+        <a href="#">Phones</a>
+        <a href="#">Computers</a>
+        <a href="#">Tv & Sound</a>
+    </div>  
+    </div>
+
+    <form method="post" action="logout.php" ><button>LogOut</button></form>
+</body>
+</html>

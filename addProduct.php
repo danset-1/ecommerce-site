@@ -1,16 +1,18 @@
 <?php 
-
+session_start(); 
 $servername = "utbweb.its.ltu.se:3306";
 $username = "";
 $password = "";
 $dbName = "";
+
+$cartID = $_SESSION['username'];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbName);
 if(isset($_POST['computer'])) 
     { 
 
-        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity) VALUES ('0','0','1','1')";
+        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity) VALUES ($cartID,'0','1','1')";
 
         if ($conn->query($sql) === TRUE) {
          
@@ -26,7 +28,7 @@ if(isset($_POST['computer']))
     if(isset($_POST['nokia'])) 
     { 
 
-        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity) VALUES ('0','1','1','1')";
+        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity) VALUES ($cartID,'1','1','1')";
 
         if ($conn->query($sql) === TRUE) {
             
@@ -42,7 +44,7 @@ if(isset($_POST['computer']))
     if(isset($_POST['screen'])) 
     { 
 
-        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity) VALUES ('0','2','1','1')";
+        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity) VALUES ($cartID,'2','1','1')";
 
         if ($conn->query($sql) === TRUE) {
       
