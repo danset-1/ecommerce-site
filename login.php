@@ -1,7 +1,8 @@
 <?php
-$username = "";
-$password = "";
-$dbName = "";
+ $servername = "utbweb.its.ltu.se:3306";
+ $username = "20020717";
+ $password = "Daniel2002";
+ $dbName = "db20020717";
 
 session_start(); 
 if (isset($_SESSION["loggedin"])) { 
@@ -47,12 +48,13 @@ if (isset($_SESSION["loggedin"])) {
 </head>
 <body>
     <div class="nav">
-        <div class="flex">
-            <div id="menuBtn"><a id="open"onclick="openNav()">&equiv;</a></div>
-            <div id="title"><a href="index.html"><h1>Electramix</h1></a></div>
-            <div id="searchBar"><input id="t" type="text" placeholder="Search.."></div>
-            <a href="checkout.php"><img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt=""></a>
-        </div>
+     <div class="flex">
+        <div id="menuBtn"><a id="open"onclick="openNav()">&equiv;</a></div>
+        <div id="title"><a href="index.html"><h1>Electramix</h1></a></div>
+        <div id="searchBar"><input id="t" type="text" placeholder="Search.."></div>
+        <a href="login.php"><img src="pic/usr.png" width="50px" height="50px" alt=""></a>
+        <a href="checkout.php"><img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt=""></a>
+    </div>
 
     <div id="menu" class="menu">
         <a class="close" onclick="closeNav()">&times;</a>
@@ -69,6 +71,6 @@ if (isset($_SESSION["loggedin"])) {
         <br><br>
         <input type="submit" name="submit" value="Submit">  
     </form>
-
+    <a href="createAcc.html"><button class="button">Create Account</button></a>
 </body>
 </html>

@@ -14,7 +14,8 @@
             <div id="menuBtn"><a id="open"onclick="openNav()">&equiv;</a></div>
             <div id="title"><a href="index.html"><h1>Electramix</h1></a></div>
             <div id="searchBar"><input id="t" type="text" placeholder="Search.."></div>
-            <img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt="">
+            <a href="login.php"><img src="pic/usr.png" width="50px" height="50px" alt=""></a>
+            <a href="checkout.php"><img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt=""></a>
         </div>
 
     <div id="menu" class="menu">
@@ -29,16 +30,25 @@
     <?php
     // header("Location: purchase.html");//redirect to your html with status
     // exit;
-
+    session_start(); 
     $servername = "utbweb.its.ltu.se:3306";
     $username = "";
     $password = "";
     $dbName = "";
 
+    
+    if(!(isset($_SESSION['username']))){
+    ?>
+    <h2>Not Logged In</h2>
+    <h3>In order to use checkout you need to be logged in!</h3>
+    <a href="login.php"><button class="button">Go to Login</button></a>
+    <?php
+    }else{
+        $userID = $_SESSION['username'];
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbName);
 
-    $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart";
+    $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart where (UserID = $userID)";
 
     $result = $conn->query($sql);
     $totalsum = 0;
@@ -84,3 +94,6 @@
 
 </body>
 </html>
+<?php
+    }
+?>
