@@ -1,5 +1,5 @@
 <?php 
-
+session_start(); 
 
 $servername = "utbweb.its.ltu.se:3306";
 $username = "";
@@ -17,7 +17,7 @@ $dbName = "";
         
     } 
 
-    $query = "UPDATE Cart SET Quantity = Quantity+1 WHERE (`ProductIDs` = $val)";
+    $query = "UPDATE Cart SET Quantity = Quantity+1 WHERE (ProductIDs = '$val' AND UserID = '$userID')";
 
     $result = $conn->query($query); 
 

@@ -48,7 +48,7 @@
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbName);
 
-    $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart where (UserID = $userID)";
+    $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart where (UserID = '$userID')";
 
     $result = $conn->query($sql);
     $totalsum = 0;
