@@ -1,3 +1,9 @@
+<?php
+session_start(); 
+$servername = "utbweb.its.ltu.se:3306";
+$conn = new mysqli($servername, $username, $password, $dbName);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +56,32 @@
             Pellentesque id tincidunt mi. Aenean condimentum lobortis ante vitae venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et 
             ultrices posuere cubilia curae; Vivamus eu auctor tortor. Nam viverra cursus libero, in tristique ante sagittis sed. 
             Nunc id tellus a felis scelerisque interdum quis a magna.</p>
+        </div>
+        <form method="post" action="addReview.php">  
+                <div class="rBox">
+                <textarea class="rBox" name="review" rows="6" cols="50"></textarea>
+                </div>
+                <input type="submit" name="item" value="Submit">  
+            </form>
+        <div class="review">
+            <div><h1>Reviews</h1></div>
+            <?php
+            $sql = "SELECT ReviewID, UserID, Review, Score, ProductID FROM Reviews where ProductID = '0'";
+            $result = $conn->query($sql);            
+        
+            if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+            $r = "$row[Review]";
+            ?>
+            <div class="rUsers">
+                <p><?= $r ?></p>
+            </div>
+            <?php
+            }
+            }
+            ?>
+
         </div>
 
     </div>

@@ -12,9 +12,6 @@ $conn = new mysqli($servername, $username, $password, $dbName);
 $cartid = "SELECT CartID FROM Cart";
 $result = $conn->query($cartid);
 $highestID = 0;
-if ($result == TRUE) {
-  echo "wut";
-}
 // $row = $result->fetch_assoc();
 // $highestID = "$row[max_id]" + 1;
 

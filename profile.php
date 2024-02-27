@@ -1,8 +1,35 @@
 <?php
-session_start();
+$servername = "utbweb.its.ltu.se:3306";
+session_start(); 
+    $conn = mysqli_connect($servername, $username, $password, $dbName);
+if(!$conn) {
+    die("Connection To Database Failed:".mysqli_connect_error());
+}
+$userID = $_SESSION['username'];
+
+    $dbinfo = "SELECT UserID, FullName, Adress, City, PostalCode, Country, Orders FROM Users WHERE UserID='$userID'";
+    $dbresult = mysqli_query($conn, $dbinfo);
+    $rt = mysqli_fetch_array($dbresult);
+
+
+    $id = $rt['UserID'];
+    $name = $rt['FullName'];
+    $adress = $rt['Adress'];
+    $city = $rt['City'];
+    $postalcode = $rt['PostalCode'];
+    $country = $rt['Country'];
+    $orders = $rt['Orders'];
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    table, th {
+  border:1px solid black;
+  }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +54,33 @@ session_start();
         <a href="#">Tv & Sound</a>
     </div>  
     </div>
+    
+    <div>
+        <table>
+        <tr>
+            <th>UserID: <span><?php echo $id; ?></span></th>
+        </tr>
+        <tr>
+        <th>FullName: <span><?php echo $name; ?></span></th>
+        </tr>
+        <tr>
+            <th>Adress: <span><?php echo $adress; ?></span></th>
+        </tr>
+        <tr>
+            <th>City: <span><?php echo $city; ?></span></th>
+        </tr>
+        <tr>
+            <th>PostalCode: <span><?php echo $postalcode; ?></span></th>
+        </tr>
+        <tr>
+            <th>Country: <span><?php echo $country; ?></span></th>
+        </tr>
+        <tr>
+            <th>Orders: <span><?php echo $orders; ?></span></th>
+        </tr>
+        </table>
+    </div>
+
 
     <form method="post" action="logout.php" ><button>LogOut</button></form>
 </body>
