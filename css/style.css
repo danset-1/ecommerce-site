@@ -245,3 +245,7 @@ body{
   width: 100%;
   padding: 20px;
 }
+.order{
+  border: 2px solid grey;
+  
+}

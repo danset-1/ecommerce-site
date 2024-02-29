@@ -58,10 +58,10 @@ $userID = $_SESSION['username'];
     <div>
         <table>
         <tr>
-            <th>UserID: <span><?php echo $id; ?></span></th>
+            <th>Username: <span><?php echo $id; ?></span></th>
         </tr>
         <tr>
-        <th>FullName: <span><?php echo $name; ?></span></th>
+        <th>Full Name: <span><?php echo $name; ?></span></th>
         </tr>
         <tr>
             <th>Adress: <span><?php echo $adress; ?></span></th>
@@ -81,7 +81,52 @@ $userID = $_SESSION['username'];
         </table>
     </div>
 
+    <div>
+        <h1>Your Orders</h1>
+        <?php
+        $sql = "SELECT OrderID FROM Orders where (UserID = '$userID')";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            $orderID = "$row[OrderID]";
+            $sql2 = "SELECT ProductID, Quantity FROM OrderItems where (OrderID = '$orderID')";
+            $result2 = $conn->query($sql2);
 
-    <form method="post" action="logout.php" ><button>LogOut</button></form>
+
+            ?>
+            <div class="order">
+            <?php
+            if ($result2->num_rows > 0) {
+                // output data of each row
+                while($row2 = $result2->fetch_assoc()) {
+                    $sql3 = "SELECT ProductName, Price, Images FROM Products Where ($row2[ProductID] = ProductID)";
+                    $result3 = $conn->query($sql3);
+                    $row3 = $result3->fetch_assoc();
+                    ?>
+                    <div class="checkoutWrap">
+                        <div class="c">
+                        <div><img src="<?= $row3['Images']; ?>" height="100px" width="100px" alt=""></div>
+                        <div><h2><?= $row3['ProductName']; ?></h2></div>
+                        <div><h2><?= $row3['Price']; ?>:-</h2></div>
+                        </div>
+                            <div class="quantity"><h2>Quantity: <?= $row2['Quantity']; ?></h2></div>
+                        </div>
+                    </div>
+            
+                <?php
+                }
+            }
+            ?>
+            </div>
+            <?php
+        }
+        }
+        ?>
+    </div>
+
+
+    <form method="post" action="logout.php" ><button id="pBtn" class="button">LogOut</button></form>
 </body>
 </html>

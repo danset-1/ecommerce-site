@@ -84,7 +84,7 @@
     <div class="checkOutBtn">
         <div>
             <h1>Total price: <?= $totalsum ?>:-</h1>
-            <form method="post" action="order.php" ><button class="button">Purchase</button></form>
+            <form method="post" action="order.php" ><button name="cost" value="<?= $totalsum?>" class="button">Purchase</button></form>
         </div>
     </div>
 

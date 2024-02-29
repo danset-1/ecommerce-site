@@ -6,6 +6,8 @@ $conn = new mysqli($servername, $username, $password, $dbName);
 $userID = $_SESSION['username'];
 
 $review = $_POST["review"];
+$title = $_POST["title"];
+$grade = $_POST["grade"];
 
 $reviewID = "SELECT ReviewID FROM Reviews";
 $result = $conn->query($reviewID);
@@ -17,16 +19,32 @@ if ($result->num_rows > 0) {
     $highestID = "$id[ReviewID]"+1;
   }
 }
-if(isset($_POST['item'])) 
-    { 
+if(isset($_POST['item'])) { 
         // Getting the value of button 
         // in $plus variable 
         $val = 0; 
-        
     } 
+    if(isset($_POST['item1'])) { 
+      // Getting the value of button 
+      // in $plus variable 
+      $val = 1; 
+  } 
+    if(isset($_POST['item2'])) { 
+    // Getting the value of button 
+    // in $plus variable 
+    $val = 2; 
+  } 
 
-    $sql = "INSERT INTO Reviews (ReviewID, UserID, Review, Score, ProductID) VALUES ('$highestID','$userID','$review','1','$val')";
+    $sql = "INSERT INTO Reviews (ReviewID, UserID, Review, Score, ProductID, Title) VALUES ('$highestID','$userID','$review','$grade','$val','$title')";
     $conn->query($sql);
     
     $conn->close();
+    if($val == 0){
+      header("Location: item.php");
+    }
+    if($val == 1){
+      header("Location: item2.php");
+    }if($val == 2){
+      header("Location: item3.php");
+    }
 ?>

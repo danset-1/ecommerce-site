@@ -21,5 +21,5 @@ if($conn->query($sql)== true){
 }
 $conn->close();
 
-// header("Location: login.php");
+header("Location: login.php");
 ?>

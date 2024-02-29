@@ -1,13 +1,19 @@
 <?php
  $servername = "utbweb.its.ltu.se:3306";
- $username = "20020717";
- $password = "Daniel2002";
- $dbName = "db20020717";
+ $username = "";
+ $password = "";
+ $dbName = "";
 
 session_start(); 
-if (isset($_SESSION["loggedin"])) { 
+if (isset($_SESSION["loggedin"])){
+
+}else{
+    $_SESSION['loggedin'] = false;
+}
+if ($_SESSION["loggedin"] == true) { 
     header("Location: profile.php");
 } 
+
  // Create connection
  $conn = new mysqli($servername, $username, $password, $dbName);
 
@@ -71,6 +77,6 @@ if (isset($_SESSION["loggedin"])) {
         <br><br>
         <input type="submit" name="submit" value="Submit">  
     </form>
-    <a href="createAcc.html"><button class="button">Create Account</button></a>
+    <a href="createAcc.html"><button id="pBtn" class="button">Create Account</button></a>
 </body>
 </html>

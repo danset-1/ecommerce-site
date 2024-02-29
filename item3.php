@@ -1,3 +1,15 @@
+<?php
+session_start(); 
+$servername = "utbweb.its.ltu.se:3306";
+$conn = new mysqli($servername, $username, $password, $dbName);
+if($_SESSION['loggedin'] == null){
+    $_SESSION['loggedin'] = false;
+    header("Location: item.php");
+
+}else{
+    $userID = $_SESSION['username'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +28,7 @@
             <div id="searchBar"><input id="t" type="text" placeholder="Search.."></div>
             <a href="login.php"><img src="pic/usr.png" width="50px" height="50px" alt=""></a>
             <a href="checkout.php"><img src="pic/cart.svg" id="cartIcon" width="50px" height="50px" alt=""></a>
-        </div>
+        </div> 
 
     <div id="menu" class="menu">
         <a class="close" onclick="closeNav()">&times;</a>
@@ -52,7 +64,48 @@
             ultrices posuere cubilia curae; Vivamus eu auctor tortor. Nam viverra cursus libero, in tristique ante sagittis sed. 
             Nunc id tellus a felis scelerisque interdum quis a magna.</p>
         </div>
+        <?php
+        if($_SESSION['loggedin'] == false){
 
+        }else{
+        ?>
+        <form method="post" action="addReview.php">  
+            Title:<input type="text" name="title" value="">
+            Grade:<input type="text" name="grade" value="">
+                <div class="rBox">
+                <textarea class="rBox" name="review" rows="6" cols="50"></textarea>
+                </div>
+                <input type="submit" name="item2" value="Submit">  
+            </form>
+            <?php
+        }
+            ?>
+        <div class="review">
+            <div><h1>Reviews</h1></div>
+            <?php
+            $sql = "SELECT ReviewID, UserID, Review, Score, ProductID, Title FROM Reviews where ProductID = '2'";
+            $result = $conn->query($sql);            
+        
+            if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+            $r = "$row[Review]";
+            $s = "$row[Score]";
+            $t = "$row[Title]";
+            $user = "$row[UserID]";
+            ?>
+            <div class="rUsers">
+                <h2><?= $t ?></h2>
+                <p><?= $r ?></p>
+                <p>Grading: <?= $s ?>/5</p> 
+                <p>Written by: <?= $user ?></p>
+            </div>
+            <?php
+            }
+            }
+            ?>
+
+        </div>
     </div>
 
 </body>
