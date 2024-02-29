@@ -84,7 +84,8 @@ $userID = $_SESSION['username'];
     <div>
         <h1>Your Orders</h1>
         <?php
-        $sql = "SELECT OrderID FROM Orders where (UserID = '$userID')";
+        $orders = 1;
+        $sql = "SELECT OrderID, Cost FROM Orders where (UserID = '$userID')";
         $result = $conn->query($sql);
         
         if ($result->num_rows > 0) {
@@ -93,10 +94,10 @@ $userID = $_SESSION['username'];
             $orderID = "$row[OrderID]";
             $sql2 = "SELECT ProductID, Quantity FROM OrderItems where (OrderID = '$orderID')";
             $result2 = $conn->query($sql2);
-
-
+            $cost = "$row[Cost]";
             ?>
             <div class="order">
+                <h2>Order <?= $orders ?></h2>
             <?php
             if ($result2->num_rows > 0) {
                 // output data of each row
@@ -105,12 +106,11 @@ $userID = $_SESSION['username'];
                     $result3 = $conn->query($sql3);
                     $row3 = $result3->fetch_assoc();
                     ?>
-                    <div class="checkoutWrap">
+                    <div class="profileWrap">
                         <div class="c">
-                        <div><img src="<?= $row3['Images']; ?>" height="100px" width="100px" alt=""></div>
-                        <div><h2><?= $row3['ProductName']; ?></h2></div>
-                        <div><h2><?= $row3['Price']; ?>:-</h2></div>
-                        </div>
+                            <div><img src="<?= $row3['Images']; ?>" height="100px" width="100px" alt=""></div>
+                            <div><h2><?= $row3['ProductName']; ?></h2></div>
+                            <div><h2><?= $row3['Price']; ?>:-</h2></div>
                             <div class="quantity"><h2>Quantity: <?= $row2['Quantity']; ?></h2></div>
                         </div>
                     </div>
@@ -118,15 +118,19 @@ $userID = $_SESSION['username'];
                 <?php
                 }
             }
+            $orders +=1;
             ?>
+            <div class="wrap"><h2>Cost: <?= $cost ?>:-</h2></div>
+            <br><br>
             </div>
             <?php
+            
         }
         }
         ?>
     </div>
 
 
-    <form method="post" action="logout.php" ><button id="pBtn" class="button">LogOut</button></form>
+    <div class="wrap" style="margin: 10px;"><form method="post" action="logout.php" ><button id="pBtn" class="button">LogOut</button></form></div>
 </body>
 </html>

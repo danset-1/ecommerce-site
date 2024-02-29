@@ -79,7 +79,6 @@
 
     <?php
     }
-    }
     ?>
     <div class="checkOutBtn">
         <div>
@@ -87,6 +86,15 @@
             <form method="post" action="order.php" ><button name="cost" value="<?= $totalsum?>" class="button">Purchase</button></form>
         </div>
     </div>
+    <?php
+    }else{
+    ?>
+    <div class="wrap">
+    <h2>Your Cart is empty.</h2>
+    </div>
+    <?php
+    }
+    ?>
 
     </div>
 

@@ -249,3 +249,20 @@ body{
   border: 2px solid grey;
   
 }
+
+.login input{
+  width: 200px;
+  margin:auto;
+}
+.wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profileWrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid grey;
+  
+}

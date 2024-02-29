@@ -70,13 +70,20 @@ if ($_SESSION["loggedin"] == true) {
     </div>  
     </div>
 
+    <div class="wrap">
+        <div>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-        Name: <input type="text" name="name" value="">
-        Password: <input type="text" name="password" value="">
+        <div class="login">Username: <input type="text" name="name" value=""></div>
+        <div class="login">Password: <input type="text" name="password" value=""></div>
 
         <br><br>
-        <input type="submit" name="submit" value="Submit">  
+        <input id="pBtn"class="button"type="submit" name="submit" value="LogIn">  
     </form>
+    <br><br>
+    <div>
     <a href="createAcc.html"><button id="pBtn" class="button">Create Account</button></a>
+    </div>
+    </div>
+    </div>
 </body>
 </html>
