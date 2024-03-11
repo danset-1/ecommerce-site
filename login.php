@@ -1,8 +1,8 @@
 <?php
  $servername = "utbweb.its.ltu.se:3306";
- $username = "20020717";
- $password = "Daniel2002";
- $dbName = "db20020717";
+ $username = "";
+ $password = "";
+ $dbName = "";
 
 session_start(); 
 if (isset($_SESSION["loggedin"])){
