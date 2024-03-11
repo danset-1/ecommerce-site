@@ -2,11 +2,12 @@
 session_start(); 
 $servername = "utbweb.its.ltu.se:3306";
 $conn = new mysqli($servername, $username, $password, $dbName);
-if($_SESSION['loggedin'] == null){
-    $_SESSION['loggedin'] = false;
-    header("Location: item.php");
+if (isset($_SESSION["loggedin"])){
 
 }else{
+    $_SESSION['loggedin'] = false;
+}
+if($_SESSION["loggedin"] == true){
     $userID = $_SESSION['username'];
 }
 ?>
@@ -51,6 +52,17 @@ if($_SESSION['loggedin'] == null){
         <div class="purchase">
             <h1>5.99:-</h1>
             <form method="post" action="addProduct.php" ><button class="button" id="pBtn" type="submit" name="screen">Purchase</button></form>
+            <?php
+            $sql = "SELECT Stock FROM Products where ProductID = '2'";
+            $result = $conn->query($sql);
+        
+            if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+            $stock = "$row[Stock]";
+            }}
+            ?>
+            <h2>In Stock: <?= $stock ?></h2>
         </div>
             
         </div>
@@ -69,13 +81,13 @@ if($_SESSION['loggedin'] == null){
 
         }else{
         ?>
-        <form method="post" action="addReview.php">  
+       <form method="post" action="addReview.php">  
             Title:<input type="text" name="title" value="">
-            Grade:<input type="text" name="grade" value="">
+            Grade 1-5:<input type="text" name="grade" value="">
                 <div class="rBox">
                 <textarea class="rBox" name="review" rows="6" cols="50"></textarea>
                 </div>
-                <input type="submit" name="item2" value="Submit">  
+                <input class="revBtn" type="submit" name="item" value="Add Review">   
             </form>
             <?php
         }
@@ -96,8 +108,8 @@ if($_SESSION['loggedin'] == null){
             ?>
             <div class="rUsers">
                 <h2><?= $t ?></h2>
-                <p><?= $r ?></p>
-                <p>Grading: <?= $s ?>/5</p> 
+                <p>Grading: <?= $s ?>/5</p>
+                <p><?= $r ?></p> 
                 <p>Written by: <?= $user ?></p>
             </div>
             <?php

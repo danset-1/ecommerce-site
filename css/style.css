@@ -242,7 +242,7 @@ body{
 .rUsers{
   border: 2px solid grey;
   height: auto;
-  width: 100%;
+  /* width: 100%; */
   padding: 20px;
 }
 .order{
@@ -262,7 +262,18 @@ body{
 .profileWrap{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border: 1px solid grey;
   
+}
+.revBtn{
+  border: none;
+  color: white;
+  padding: 32px 42px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  background-color: black;
+  cursor: pointer;
 }

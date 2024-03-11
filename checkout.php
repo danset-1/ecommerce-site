@@ -41,7 +41,7 @@
     ?>
     <h2>Not Logged In</h2>
     <h3>In order to use checkout you need to be logged in!</h3>
-    <a href="login.php"><button class="button">Go to Login</button></a>
+    <a href="login.php"><button id="pBtn" class="button">Go to Login</button></a>
     <?php
     }else{
         $userID = $_SESSION['username'];

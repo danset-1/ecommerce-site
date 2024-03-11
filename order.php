@@ -17,19 +17,25 @@ $highestID = 0;
 if ($result->num_rows > 0) {
   // output data of each row
   while($id = $result->fetch_assoc()) {
-    $highestID = "$id[OrderItemID]"+1;
+    if("$id[OrderItemID]"> $highestID){
+    $highestID = "$id[OrderItemID]";
+    }
   }
 }
+$highestID+=1;
 
 $orderItemID = "SELECT OrderID FROM Orders";
 $result2 = $conn->query($orderItemID);
 $orderID = 0;
 if ($result2->num_rows > 0) {
     // output data of each row
-    while($id = $result2->fetch_assoc()) {
-      $orderID = "$id[OrderID]"+1;
+    while($j = $result2->fetch_assoc()) {
+      if("$j[OrderID]"> $orderID){
+      $orderID = "$j[OrderID]";
+      }
     }
   }
+$orderID += 1;
 
 $sql = "SELECT CartID, ProductIDs, Quantity FROM Cart where (UserID = '$userID')";
 $result = $conn->query($sql);
