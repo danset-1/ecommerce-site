@@ -1,8 +1,8 @@
 <?php
  $servername = "utbweb.its.ltu.se:3306";
- $username = "";
- $password = "";
- $dbName = "";
+ $username = "20020717";
+ $password = "Daniel2002";
+ $dbName = "db20020717";
 
 session_start(); 
 if (isset($_SESSION["loggedin"])){
@@ -17,6 +17,7 @@ if ($_SESSION["loggedin"] == true) {
  // Create connection
  $conn = new mysqli($servername, $username, $password, $dbName);
 
+ 
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $sql = "SELECT UserID, Password FROM Users";
  $name = $_POST["name"];
@@ -32,6 +33,14 @@ if ($_SESSION["loggedin"] == true) {
     if($b == $passwd){
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $name;
+        $userID = $_SESSION['username'];
+        $sql2 = "SELECT UserType FROM Users WHERE UserID = '$userID'";
+        $result2 = $conn->query($sql2);
+        while($row2 = $result2->fetch_assoc()) {
+            $type = "$row2[UserType]";
+            $_SESSION['usertype'] = $type;
+        }
+        
         header("Location: profile.php");//redirect
     }else{
         header("Location: login.php");

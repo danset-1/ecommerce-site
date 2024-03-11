@@ -1,6 +1,9 @@
 <?php
 session_start(); 
 $servername = "utbweb.its.ltu.se:3306";
+$username = "20020717";
+$password = "Daniel2002";
+$dbName = "db20020717";
 $conn = new mysqli($servername, $username, $password, $dbName);
 if (isset($_SESSION["loggedin"])){
 
@@ -77,10 +80,15 @@ if($_SESSION["loggedin"] == true){
             Nunc id tellus a felis scelerisque interdum quis a magna.</p>
         </div>
         <?php
+
+        #if($_SESSION['usertype'] == "admin"){
         if($_SESSION['loggedin'] == false){
 
-        }else{
-        ?>
+        }
+        
+        else{
+            
+                ?>
         <h1>Add Review</h1>
         <form method="post" action="addReview.php">  
             Title:<input type="text" name="title" value="">
@@ -91,7 +99,8 @@ if($_SESSION["loggedin"] == true){
                 <input class="revBtn" type="submit" name="item" value="Add Review">  
             </form>
             <?php
-        }
+            }
+        
             ?>
         <div class="review">
             <div><h1>Reviews</h1></div>

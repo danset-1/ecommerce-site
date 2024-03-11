@@ -1,15 +1,18 @@
 <?php
 $servername = "utbweb.its.ltu.se:3306";
+$username = "20020717";
+$password = "Daniel2002";
+$dbName = "db20020717";
 session_start(); 
     $conn = mysqli_connect($servername, $username, $password, $dbName);
 if(!$conn) {
     die("Connection To Database Failed:".mysqli_connect_error());
 }
 $userID = $_SESSION['username'];
-
     $dbinfo = "SELECT UserID, FullName, Adress, City, PostalCode, Country, Orders FROM Users WHERE UserID='$userID'";
     $dbresult = mysqli_query($conn, $dbinfo);
     $rt = mysqli_fetch_array($dbresult);
+    
 
 
     $id = $rt['UserID'];
@@ -20,6 +23,8 @@ $userID = $_SESSION['username'];
     $country = $rt['Country'];
     $orders = $rt['Orders'];
 
+$type = $_SESSION['usertype']
+    
 
 
 ?>
@@ -59,6 +64,9 @@ $userID = $_SESSION['username'];
         <table>
         <tr>
             <th>Username: <span><?php echo $id; ?></span></th>
+        </tr>
+        <tr>
+        <th>User Type: <span><?php echo $type; ?></span></th>
         </tr>
         <tr>
         <th>Full Name: <span><?php echo $name; ?></span></th>
