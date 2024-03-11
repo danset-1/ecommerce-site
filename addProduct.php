@@ -32,7 +32,16 @@ if(isset($_POST['computer'])) {
         $conn->query($sql);
     } else {
         // If no such row exists, insert a new row
-        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity, UserID) VALUES ('$highestID','0','1','1','$userID')";
+        $query2 = "SELECT Price FROM Products WHERE ProductID = '0'";
+        $result2 = $conn->query($query2);
+        if ($result2->num_rows > 0) {
+            // output data of each row
+            while($row = $result2->fetch_assoc()) {
+            $currPrice = "$row[Price]";
+
+            }
+        }
+        $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity, UserID) VALUES ('$highestID','0','$currPrice','1','$userID')";
         $conn->query($sql);
     }
       
@@ -49,7 +58,16 @@ if(isset($_POST['nokia'])) {
       $conn->query($sql);
   } else {
       // If no such row exists, insert a new row
-      $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity, UserID) VALUES ('$highestID','1','1','1','$userID')";
+      $query2 = "SELECT Price FROM Products WHERE ProductID = '1'";
+      $result2 = $conn->query($query2);
+      if ($result2->num_rows > 0) {
+          // output data of each row
+          while($row = $result2->fetch_assoc()) {
+          $currPrice = "$row[Price]";
+
+          }
+      }
+      $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity, UserID) VALUES ('$highestID','1','$currPrice','1','$userID')";
       $conn->query($sql);
   }
       
@@ -67,7 +85,15 @@ if(isset($_POST['screen'])) {
       $conn->query($sql);
   } else {
       // If no such row exists, insert a new row
-      $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity, UserID) VALUES ('$highestID','2','1','1','$userID')";
+      $query2 = "SELECT Price FROM Products WHERE ProductID = '2'";
+      $result2 = $conn->query($query2);
+      if ($result2->num_rows > 0) {
+          // output data of each row
+          while($row = $result2->fetch_assoc()) {
+          $currPrice = "$row[Price]";
+          }
+      }
+      $sql = "INSERT INTO Cart (CartID, ProductIDs, CurrentPrice, Quantity, UserID) VALUES ('$highestID','2','$currPrice','1','$userID')";
       $conn->query($sql);
   }
       

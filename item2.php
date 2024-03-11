@@ -38,7 +38,13 @@ if($_SESSION["loggedin"] == true){
         <a href="#">Tv & Sound</a>
     </div>  
     </div>
-
+    <?php
+    if($_SESSION['usertype'] == "admin"){
+    ?>
+    <form method="post" action="editProduct.php" ><button class="button" id="pBtn" type="submit" name="item1">Edit this page</button></form>
+    <?php
+    }
+    ?>
     <div class="container">
 
         <div class="top">
@@ -51,17 +57,29 @@ if($_SESSION["loggedin"] == true){
 
         <div class="purchase">
             <h1>2.99:-</h1>
+            <?php
+            $buy = true;
+            $sq = "SELECT Stock FROM Products where ProductID = '1'";
+            $result3 = $conn->query($sq);
+        
+            if ($result3->num_rows > 0) {
+            // output data of each row
+            while($row = $result3->fetch_assoc()) {
+                $stock = "$row[Stock]";
+                if($stock<1){
+                    $buy = false;
+                }
+            }}
+            if($buy == true){
+            ?>
             <form method="post" action="addProduct.php" ><button class="button" id="pBtn" type="submit" name="nokia">Purchase</button></form>
             <?php
-            $sql = "SELECT Stock FROM Products where ProductID = '1'";
-            $result = $conn->query($sql);
-        
-            if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-            $stock = "$row[Stock]";
-            }}
-            ?>
+            }else{
+                ?>
+                <button class="graybutton" >Purchase</button>
+                <?php
+            }
+                ?>
             <h2>In Stock: <?= $stock ?></h2>
         </div>
             

@@ -37,7 +37,7 @@ if ($result2->num_rows > 0) {
   }
 $orderID += 1;
 
-$sql = "SELECT CartID, ProductIDs, Quantity FROM Cart where (UserID = '$userID')";
+$sql = "SELECT CartID, ProductIDs, Quantity, CurrentPrice FROM Cart where (UserID = '$userID')";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -45,13 +45,16 @@ if ($result->num_rows > 0) {
 while($row = $result->fetch_assoc()) {
     $q = "$row[Quantity]";
     $p = "$row[ProductIDs]";
-    $sql = "INSERT INTO OrderItems (OrderItemID, OrderID, ProductID, Quantity) VALUES ('$highestID','$orderID','$p','$q')";
+    $currP = "$row[CurrentPrice]";
+    $sql = "INSERT INTO OrderItems (OrderItemID, OrderID, ProductID, Quantity, Price) VALUES ('$highestID','$orderID','$p','$q','$currP')";
     $conn->query($sql);
+    $query = "UPDATE Products SET Stock = Stock - $q WHERE ProductID = '$p'";
+    $conn->query($query); 
     $highestID += 1;
 }
 }
-
-$sql2 = "INSERT INTO Orders (OrderID, Cost, UserID) VALUES ('$orderID','$totalcost','$userID')";
+$date = date("d/m-y");
+$sql2 = "INSERT INTO Orders (OrderID, Cost, UserID, Date) VALUES ('$orderID','$totalcost','$userID', '$date')";
 $conn->query($sql2);
 
 $sql1 = "DELETE FROM Cart Where (UserID = '$userID')";

@@ -23,8 +23,10 @@ $userID = $_SESSION['username'];
     $country = $rt['Country'];
     $orders = $rt['Orders'];
 
-$type = $_SESSION['usertype']
-    
+$type = $_SESSION['usertype'];
+    if($type == "admin"){
+        header("Location: adminprofile.php");
+    }
 
 
 ?>
@@ -83,9 +85,6 @@ $type = $_SESSION['usertype']
         <tr>
             <th>Country: <span><?php echo $country; ?></span></th>
         </tr>
-        <tr>
-            <th>Orders: <span><?php echo $orders; ?></span></th>
-        </tr>
         </table>
     </div>
 
@@ -93,32 +92,37 @@ $type = $_SESSION['usertype']
         <h1>Your Orders</h1>
         <?php
         $orders = 1;
-        $sql = "SELECT OrderID, Cost FROM Orders where (UserID = '$userID')";
+        $sql = "SELECT OrderID, Cost, Date FROM Orders where (UserID = '$userID')";
         $result = $conn->query($sql);
         
         if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
             $orderID = "$row[OrderID]";
-            $sql2 = "SELECT ProductID, Quantity FROM OrderItems where (OrderID = '$orderID')";
+            $date = "$row[Date]";
+            $sql2 = "SELECT ProductID, Quantity, Price FROM OrderItems where (OrderID = '$orderID')";
             $result2 = $conn->query($sql2);
             $cost = "$row[Cost]";
             ?>
             <div class="order">
                 <h2>Order <?= $orders ?></h2>
+                <p><?= $date ?></p>
             <?php
             if ($result2->num_rows > 0) {
                 // output data of each row
                 while($row2 = $result2->fetch_assoc()) {
-                    $sql3 = "SELECT ProductName, Price, Images FROM Products Where ($row2[ProductID] = ProductID)";
+                    $sql3 = "SELECT ProductName, Images FROM Products Where ($row2[ProductID] = ProductID)";
                     $result3 = $conn->query($sql3);
                     $row3 = $result3->fetch_assoc();
+                    $q = "$row2[Quantity]";
+                    $price = "$row2[Price]";
+                    $totalsum =($price*$q);
                     ?>
                     <div class="profileWrap">
                         <div class="c">
                             <div><img src="<?= $row3['Images']; ?>" height="100px" width="100px" alt=""></div>
                             <div><h2><?= $row3['ProductName']; ?></h2></div>
-                            <div><h2><?= $row3['Price']; ?>:-</h2></div>
+                            <div><h2><?= $totalsum; ?>:-</h2></div>
                             <div class="quantity"><h2>Quantity: <?= $row2['Quantity']; ?></h2></div>
                         </div>
                     </div>
