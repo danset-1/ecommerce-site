@@ -46,19 +46,6 @@ while($row = $result->fetch_assoc()) {
     $q = "$row[Quantity]";
     $p = "$row[ProductIDs]";
     $currP = "$row[CurrentPrice]";
-    $sql2 = "SELECT Stock FROM Products where (ProductID = 'ProductIDs')";
-$result2 = $conn->query($sql2);
-
-if ($result2->num_rows > 0) {
-// output data of each row
-while($row2 = $result2->fetch_assoc()) {
-  $s = "$row2[Stock]";
-  if($q > $s){
-    header("Location: index.html");//redirect
-    exit;
-  }
-
-}}
     $sql = "INSERT INTO OrderItems (OrderItemID, OrderID, ProductID, Quantity, Price) VALUES ('$highestID','$orderID','$p','$q','$currP')";
     $conn->query($sql);
     $query = "UPDATE Products SET Stock = Stock - $q WHERE ProductID = '$p'";

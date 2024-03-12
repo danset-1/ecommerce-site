@@ -10,9 +10,11 @@ if (isset($_SESSION["loggedin"])){
 }else{
     $_SESSION['loggedin'] = false;
     $_SESSION['usertype'] = "user";
+    $type = $_SESSION['usertype'];
 }
 if($_SESSION["loggedin"] == true){
     $userID = $_SESSION['username'];
+    $type = $_SESSION['usertype'];
     $type = $_SESSION['usertype'];
 }
 ?>
@@ -62,15 +64,19 @@ if($_SESSION["loggedin"] == true){
         </div>
 
         <div class="purchase">
-            <h1>0.99:-</h1>
-            <?php
+        <?php
             $buy = true;
-            $sq = "SELECT Stock FROM Products where ProductID = '0'";
+            $sq = "SELECT Stock, Price FROM Products where ProductID = '0'";
             $result3 = $conn->query($sq);
-        
+
             if ($result3->num_rows > 0) {
+
             // output data of each row
             while($row = $result3->fetch_assoc()) {
+                $Price = "$row[Price]";
+                ?>
+                <h1><?= $Price ?>:-</h1>
+                <?php
                 $stock = "$row[Stock]";
                 if($stock<1){
                     $buy = false;

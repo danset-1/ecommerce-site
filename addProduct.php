@@ -1,9 +1,9 @@
 <?php 
 session_start(); 
 $servername = "utbweb.its.ltu.se:3306";
-$username = "";
-$password = "";
-$dbName = "";
+$username = "20020717";
+$password = "Daniel2002";
+$dbName = "db20020717";
 
 $userID = $_SESSION['username'];
 
