@@ -34,10 +34,12 @@ if(isset($_POST['item'])) {
     // in $plus variable 
     $val = 2; 
   } 
+  if (!empty($title) and !empty($review)) {
     if($grade > 0 and $grade < 6){
     $sql = "INSERT INTO Reviews (ReviewID, UserID, Review, Score, ProductID, Title) VALUES ('$highestID','$userID','$review','$grade','$val','$title')";
     $conn->query($sql);
     }
+  }
     $conn->close();
     if($val == 0){
       header("Location: item.php");

@@ -90,14 +90,21 @@ if($_SESSION["loggedin"] == true){
         </div>
         </div>
 
-        <div class="description">
+        <div class="description" id="desc0">
             <h1>Description</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet dapibus nibh in ullamcorper. 
-            Vivamus sollicitudin leo non nisl pretium pellentesque. Fusce condimentum ligula metus, vitae dignissim urna egestas interdum.
-            Phasellus tincidunt, mi non accumsan aliquam, mauris quam convallis lacus, quis pharetra odio metus sit amet enim. 
-            Pellentesque id tincidunt mi. Aenean condimentum lobortis ante vitae venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et 
-            ultrices posuere cubilia curae; Vivamus eu auctor tortor. Nam viverra cursus libero, in tristique ante sagittis sed. 
-            Nunc id tellus a felis scelerisque interdum quis a magna.</p>
+            <?php
+             $sq = "SELECT Description FROM Products where ProductID = '0'";
+             $result3 = $conn->query($sq);
+         
+             if ($result3->num_rows > 0) {
+             // output data of each row
+             while($row = $result3->fetch_assoc()) {
+                 $desc = "$row[Description]";
+                ?>
+                <p><?= $desc ?></p>
+                <?php
+             }}
+            ?>
         </div>
         <?php
 
@@ -108,6 +115,7 @@ if($_SESSION["loggedin"] == true){
         else{
             
                 ?>
+        <div style="margin: 10px;">
         <h1>Add Review</h1>
         <form method="post" action="addReview.php">  
             Title:<input type="text" name="title" value="">
@@ -117,6 +125,7 @@ if($_SESSION["loggedin"] == true){
                 </div>
                 <input class="revBtn" type="submit" name="item" value="Add Review">  
             </form>
+        </div>
             <?php
             }
         
@@ -131,11 +140,19 @@ if($_SESSION["loggedin"] == true){
             // output data of each row
             while($row = $result->fetch_assoc()) {
             $r = "$row[Review]";
+            $rID = "$row[ReviewID]";
             $s = "$row[Score]";
             $t = "$row[Title]";
             $user = "$row[UserID]";
             ?>
             <div class="rUsers">
+                <?php
+                    if($type == "admin"){
+                    ?>
+                    <form method="post" action="removeReview.php" ><button id="pBtn" class="button" name="delRev" value="<?= $rID ?>">Delete Review</button></form>
+                    <?php
+                    }
+                ?>
                 <h2><?= $t ?></h2>
                 <p>Grading: <?= $s ?>/5</p>
                 <p><?= $r ?></p> 

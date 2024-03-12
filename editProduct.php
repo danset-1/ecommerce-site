@@ -10,14 +10,20 @@ if (!isset($_SESSION['temp'])) {
 // Check which button was clicked and update the session variable
 if (isset($_POST['item'])) { 
     $_SESSION['temp'] = 0;
-} elseif (isset($_POST['item1'])) { 
+} 
+if (isset($_POST['item1'])) { 
     $_SESSION['temp'] = 1; 
-} elseif (isset($_POST['item2'])) { 
+} 
+if (isset($_POST['item2'])) { 
     $_SESSION['temp'] = 2; 
 }
+$test ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet dapibus nibh in ullamcorper. Vivamus sollicitudin leo non nisl pretium pellentesque. Fusce condimentum ligula metus, vitae dignissim urna egestas interdum.Phasellus tincidunt, mi non accumsan aliquam, mauris quam convallis lacus, quis pharetra odio metus sit amet enim. 
+            Pellentesque id tincidunt mi. Aenean condimentum lobortis ante vitae venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et 
+            ultrices posuere cubilia curae; Vivamus eu auctor tortor. Nam viverra cursus libero, in tristique ante sagittis sed. 
+            Nunc id tellus a felis scelerisque interdum quis a magna.";
 
 // Process form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cStock"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve the selected item ID from the session
     $val = $_SESSION['temp'];
 
@@ -27,12 +33,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cStock"])) {
 
         // Construct and execute SQL query
         $query = "UPDATE Products SET Stock = $newStock WHERE ProductID = '$val'";
-        if ($conn->query($query) === TRUE) {
-            echo "Stock updated successfully";
-        } 
-        
-    } else {
-        // Handle case where newStock is not set
+        $conn->query($query);
+
+    } 
+    if (isset($_POST["newDesc"])) {
+        $newDesc = $conn->real_escape_string($_POST["newDesc"]);
+        $query = "UPDATE Products SET Description = '$newDesc' WHERE ProductID = '$val'";
+        $conn->query($query);
+    }
+    if (isset($_POST["return"])) {
+        if($val == 0){
+            header("Location: item.php");
+        }
+        if($val == 1){
+            header("Location: item2.php");
+        }if($val == 2){
+            header("Location: item3.php");
+        }
     }
 }
 ?>
@@ -62,16 +79,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cStock"])) {
         <a href="#">Tv & Sound</a>
     </div>  
     </div>
+
+    <div style="margin: 10px;">
     <form method="post" action="editProduct.php"> 
     Change Stock:<input type="text" name="newStock" value="">
     <input class="revBtn" type="submit" name="cStock" value="Change Stock">  
 </form>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+</div>
+<div style="margin: 10px;">
+    <form method="post" action="editProduct.php"> 
             <div class="rBox">
                 <p>Change Description</p>
-                <textarea class="rBox" name="desc" rows="6" cols="50"></textarea>
+                <textarea class="rBox" name="newDesc" rows="6" cols="50"></textarea>
                 </div>
                 <input class="revBtn" type="submit" name="desc" value="Change Description">  
-            </form>
+    </form>
+</div>
+
+    <div style="margin: 10px;"><form method="post" action="editProduct.php" ><button id="pBtn" class="button" name="return" >Return to Product</button></form></div>
 </body>
 </html>

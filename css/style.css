@@ -288,3 +288,8 @@ body{
   background-color: gray;
   cursor: pointer;
 }
+.logout{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

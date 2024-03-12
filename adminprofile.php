@@ -31,4 +31,27 @@ $conn = new mysqli($servername, $username, $password, $dbName);
         <a href="#">Tv & Sound</a>
     </div>  
     </div>
+
     <div class="wrap" style="margin: 10px;"><form method="post" action="logout.php" ><button id="pBtn" class="button">LogOut</button></form></div>
+
+    <div>
+        <?php
+            $sql = "SELECT UserID FROM Users";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                $userID = "$row[UserID]";
+                ?>
+                <div class="profileWrap">
+                    <div class="c">
+                        <div><h2>User: <?= $userID ?></h2></div>
+                        <form method="post" action="editUser.php" ><button id="pBtn" class="button" name="user" value="<?= $userID ?>">Edit User</button></form>
+                    </div>
+                </div>
+                <?php
+            }}
+        ?>
+    </div>
+

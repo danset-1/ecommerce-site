@@ -57,7 +57,7 @@
     if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $sql2 = "SELECT ProductName, Price, Images FROM Products Where ($row[ProductIDs] = ProductID)";
+        $sql2 = "SELECT ProductName, Price, Images, Stock FROM Products Where ($row[ProductIDs] = ProductID)";
         $result2 = $conn->query($sql2);
         $row2 = $result2->fetch_assoc();
         $a = "$row2[Price]";
@@ -67,7 +67,9 @@
         <div class="checkoutWrap">
             <div class="c">
             <div><img src="<?= $row2['Images']; ?>" height="150px" width="150px" alt=""></div>
-            <div><h2><?= $row2['ProductName']; ?></h2></div>
+            <div><h2><?= $row2['ProductName']; ?></h2>
+            <div style="text-align: center;"><p>In Stock: <?= $row2['Stock']; ?></p></div>
+            </div>
             <div><h2><?= $row2['Price']; ?>:-</h2></div>
             </div>
             <div class="qBtn">

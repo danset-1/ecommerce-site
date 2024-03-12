@@ -85,20 +85,28 @@ if($_SESSION["loggedin"] == true){
             
         </div>
 
-        <div class="description">
+        <div class="description" id="desc1">
             <h1>Description</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet dapibus nibh in ullamcorper. 
-            Vivamus sollicitudin leo non nisl pretium pellentesque. Fusce condimentum ligula metus, vitae dignissim urna egestas interdum.
-            Phasellus tincidunt, mi non accumsan aliquam, mauris quam convallis lacus, quis pharetra odio metus sit amet enim. 
-            Pellentesque id tincidunt mi. Aenean condimentum lobortis ante vitae venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et 
-            ultrices posuere cubilia curae; Vivamus eu auctor tortor. Nam viverra cursus libero, in tristique ante sagittis sed. 
-            Nunc id tellus a felis scelerisque interdum quis a magna.</p>
+            <?php
+             $sq = "SELECT Description FROM Products where ProductID = '1'";
+             $result3 = $conn->query($sq);
+         
+             if ($result3->num_rows > 0) {
+             // output data of each row
+             while($row = $result3->fetch_assoc()) {
+                 $desc = "$row[Description]";
+                ?>
+                <p><?= $desc ?></p>
+                <?php
+             }}
+            ?>
         </div>
         <?php
         if($_SESSION['loggedin'] == false){
 
         }else{
         ?>
+        <div style="margin: 10px;">
        <form method="post" action="addReview.php">  
             Title:<input type="text" name="title" value="">
             Grade 1-5:<input type="text" name="grade" value="">
@@ -107,6 +115,7 @@ if($_SESSION["loggedin"] == true){
                 </div>
                 <input class="revBtn" type="submit" name="item" value="Add Review"> 
             </form>
+        </div>
             <?php
         }
             ?>

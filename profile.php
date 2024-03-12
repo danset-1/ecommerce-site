@@ -61,7 +61,7 @@ $type = $_SESSION['usertype'];
         <a href="#">Tv & Sound</a>
     </div>  
     </div>
-    
+    <div class="logout">
     <div>
         <table>
         <tr>
@@ -87,6 +87,8 @@ $type = $_SESSION['usertype'];
         </tr>
         </table>
     </div>
+    <div style="margin: 10px;"><form method="post" action="logout.php" ><button id="pBtn" class="button">LogOut</button></form></div>
+</div>
 
     <div>
         <h1>Your Orders</h1>
@@ -106,7 +108,7 @@ $type = $_SESSION['usertype'];
             ?>
             <div class="order">
                 <h2>Order <?= $orders ?></h2>
-                <p><?= $date ?></p>
+                <h2 class="wrap">Date: <?= $date ?></h2>
             <?php
             if ($result2->num_rows > 0) {
                 // output data of each row
@@ -142,7 +144,5 @@ $type = $_SESSION['usertype'];
         ?>
     </div>
 
-
-    <div class="wrap" style="margin: 10px;"><form method="post" action="logout.php" ><button id="pBtn" class="button">LogOut</button></form></div>
 </body>
 </html>
